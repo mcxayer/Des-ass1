@@ -12,13 +12,13 @@ namespace WcfServices
     public interface ITeacherService
     {
         [OperationContract]
-        void CreateExam(int courseId, bool reexam = false); // Creating an exam creates a new list of exam entries, otherwise it is null
+        void CreateExam(int courseId, bool reexam = false);
 
         [OperationContract]
         List<int> GetCourseStudentIds(int courseId);
 
         [OperationContract]
-        void GradeExam(int examId, double grade);
+        void GradeExam(int examId, int studentId, double grade);
 
         [OperationContract]
         List<double> GetExamGrades(int courseId, bool reexam = false);

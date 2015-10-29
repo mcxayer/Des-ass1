@@ -18,6 +18,7 @@ namespace ClassLibrary
         public Exam()
         {
             this.ExamAttempts = new HashSet<ExamAttempt>();
+            this.Students = new HashSet<Student>();
         }
     
         public int Id { get; private set; }
@@ -28,5 +29,7 @@ namespace ClassLibrary
         public virtual Course Course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamAttempt> ExamAttempts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

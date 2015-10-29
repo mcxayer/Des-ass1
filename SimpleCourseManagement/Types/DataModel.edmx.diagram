@@ -18,6 +18,7 @@
         <EntityTypeShape EntityType="DatabaseModel.ExamAttempt" Width="1.5" PointX="6.875" PointY="8.125" />
         <AssociationConnector Association="DatabaseModel.ExamExamAttempt" />
         <AssociationConnector Association="DatabaseModel.ExamAttemptStudent" />
+        <AssociationConnector Association="DatabaseModel.ExamStudent" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

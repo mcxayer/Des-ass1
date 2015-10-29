@@ -169,6 +169,10 @@
             <End Role="ExamAttempts" EntitySet="ExamAttemptSet" />
             <End Role="Student" EntitySet="UserSet" />
           </AssociationSet>
+          <AssociationSet Name="ExamStudent" Association="DatabaseModel.ExamStudent">
+            <End Role="Exam" EntitySet="ExamSet" />
+            <End Role="Student" EntitySet="UserSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Teacher" BaseType="DatabaseModel.User" >
           <NavigationProperty Name="Courses" Relationship="DatabaseModel.CourseTeacher" FromRole="Teacher" ToRole="Course" />
@@ -176,6 +180,7 @@
         <EntityType Name="Student" BaseType="DatabaseModel.User">
           <NavigationProperty Name="Courses" Relationship="DatabaseModel.CourseStudent" FromRole="Student" ToRole="Course" />
           <NavigationProperty Name="ExamAttempt" Relationship="DatabaseModel.ExamAttemptStudent" FromRole="Student" ToRole="ExamAttempts" />
+          <NavigationProperty Name="Exams" Relationship="DatabaseModel.ExamStudent" FromRole="Student" ToRole="Exam" />
         </EntityType>
         <EntityType Name="Course" >
           <Key>
@@ -201,6 +206,7 @@
           <Property Name="CourseId" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="ExamAttempts" Relationship="DatabaseModel.ExamExamAttempt" FromRole="Exam" ToRole="ExamAttempt" />
           <Property Name="Reexam" Type="Boolean" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Students" Relationship="DatabaseModel.ExamStudent" FromRole="Exam" ToRole="Student" />
         </EntityType>
         <EnumType Name="ExamType">
           <Member Name="Oral" />
@@ -261,6 +267,10 @@
         <Association Name="ExamAttemptStudent">
           <End Type="DatabaseModel.ExamAttempt" Role="ExamAttempts" Multiplicity="*" />
           <End Type="DatabaseModel.Student" Role="Student" Multiplicity="1" />
+        </Association>
+        <Association Name="ExamStudent">
+          <End Type="DatabaseModel.Exam" Role="Exam" Multiplicity="*" />
+          <End Type="DatabaseModel.Student" Role="Student" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
