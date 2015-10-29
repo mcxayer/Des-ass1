@@ -145,47 +145,37 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="TeacherSet" EntityType="DatabaseModel.Teacher" />
-          <EntitySet Name="StudentSet" EntityType="DatabaseModel.Student" />
           <EntitySet Name="CourseSet" EntityType="DatabaseModel.Course" />
           <EntitySet Name="ExamSet" EntityType="DatabaseModel.Exam" />
           <AssociationSet Name="CourseExam" Association="DatabaseModel.CourseExam">
             <End Role="Course" EntitySet="CourseSet" />
             <End Role="Exam" EntitySet="ExamSet" />
           </AssociationSet>
-          <AssociationSet Name="ExamStudent" Association="DatabaseModel.ExamStudent">
-            <End Role="Exam" EntitySet="ExamSet" />
-            <End Role="Student" EntitySet="StudentSet" />
-          </AssociationSet>
           <AssociationSet Name="CourseStudent" Association="DatabaseModel.CourseStudent">
             <End Role="Course" EntitySet="CourseSet" />
-            <End Role="Student" EntitySet="StudentSet" />
+            <End Role="Student" EntitySet="UserSet" />
           </AssociationSet>
           <AssociationSet Name="CourseTeacher" Association="DatabaseModel.CourseTeacher">
             <End Role="Course" EntitySet="CourseSet" />
-            <End Role="Teacher" EntitySet="TeacherSet" />
+            <End Role="Teacher" EntitySet="UserSet" />
+          </AssociationSet>
+          <EntitySet Name="UserSet" EntityType="DatabaseModel.User" />
+          <EntitySet Name="ExamAttemptSet" EntityType="DatabaseModel.ExamAttempt" />
+          <AssociationSet Name="ExamExamAttempt" Association="DatabaseModel.ExamExamAttempt">
+            <End Role="Exam" EntitySet="ExamSet" />
+            <End Role="ExamAttempt" EntitySet="ExamAttemptSet" />
+          </AssociationSet>
+          <AssociationSet Name="ExamAttemptStudent" Association="DatabaseModel.ExamAttemptStudent">
+            <End Role="ExamAttempts" EntitySet="ExamAttemptSet" />
+            <End Role="Student" EntitySet="UserSet" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Teacher" >
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Name" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="FamilyName" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Email" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EntityType Name="Teacher" BaseType="DatabaseModel.User" >
           <NavigationProperty Name="Courses" Relationship="DatabaseModel.CourseTeacher" FromRole="Teacher" ToRole="Course" />
         </EntityType>
-        <EntityType Name="Student">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Name" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="FamilyName" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Email" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <NavigationProperty Name="Exams" Relationship="DatabaseModel.ExamStudent" FromRole="Student" ToRole="Exam" />
+        <EntityType Name="Student" BaseType="DatabaseModel.User">
           <NavigationProperty Name="Courses" Relationship="DatabaseModel.CourseStudent" FromRole="Student" ToRole="Course" />
+          <NavigationProperty Name="ExamAttempt" Relationship="DatabaseModel.ExamAttemptStudent" FromRole="Student" ToRole="ExamAttempts" />
         </EntityType>
         <EntityType Name="Course" >
           <Key>
@@ -209,8 +199,8 @@
           <Property Name="Type" Type="DatabaseModel.ExamType" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Course" Relationship="DatabaseModel.CourseExam" FromRole="Exam" ToRole="Course" />
           <Property Name="CourseId" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <NavigationProperty Name="Student" Relationship="DatabaseModel.ExamStudent" FromRole="Exam" ToRole="Student" />
-          <Property Name="Grade" Type="Double" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="ExamAttempts" Relationship="DatabaseModel.ExamExamAttempt" FromRole="Exam" ToRole="ExamAttempt" />
+          <Property Name="Reexam" Type="Boolean" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <EnumType Name="ExamType">
           <Member Name="Oral" />
@@ -229,10 +219,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ExamStudent">
-          <End Type="DatabaseModel.Exam" Role="Exam" Multiplicity="*" />
-          <End Type="DatabaseModel.Student" Role="Student" Multiplicity="1" />
-        </Association>
         <Association Name="CourseStudent">
           <End Type="DatabaseModel.Course" Role="Course" Multiplicity="*" />
           <End Type="DatabaseModel.Student" Role="Student" Multiplicity="*" />
@@ -241,32 +227,47 @@
           <End Type="DatabaseModel.Course" Role="Course" Multiplicity="*" />
           <End Type="DatabaseModel.Teacher" Role="Teacher" Multiplicity="0..1" />
         </Association>
+        <EntityType Name="User" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Name" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="FamilyName" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Email" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        </EntityType>
+        <EntityType Name="ExamAttempt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Grade" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Exam" Relationship="DatabaseModel.ExamExamAttempt" FromRole="ExamAttempt" ToRole="Exam" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="Student" Relationship="DatabaseModel.ExamAttemptStudent" FromRole="ExamAttempts" ToRole="Student" />
+        </EntityType>
+        <Association Name="ExamExamAttempt">
+          <End Type="DatabaseModel.Exam" Role="Exam" Multiplicity="1" />
+          <End Type="DatabaseModel.ExamAttempt" Role="ExamAttempt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamAttempt">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExamAttemptStudent">
+          <End Type="DatabaseModel.ExamAttempt" Role="ExamAttempts" Multiplicity="*" />
+          <End Type="DatabaseModel.Student" Role="Student" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
-    <EntitySetMapping Name="TeacherSet">
-      <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.Teacher)">
-        <MappingFragment StoreEntitySet="TeacherSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="StudentSet">
-      <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.Student)">
-        <MappingFragment StoreEntitySet="StudentSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CourseSet">
       <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.Course)">
         <MappingFragment StoreEntitySet="CourseSet">
@@ -285,35 +286,25 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-          <ScalarProperty Name="Grade" ColumnName="Grade" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="ExamStudent" TypeName="DatabaseModel.ExamStudent" StoreEntitySet="ExamSet">
-      <EndProperty Name="Student">
-        <ScalarProperty Name="Id" ColumnName="Student_Id" />
-      </EndProperty>
-      <EndProperty Name="Exam">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="CourseStudent" TypeName="DatabaseModel.CourseStudent" StoreEntitySet="CourseStudent">
-      <EndProperty Name="Course">
-        <ScalarProperty Name="Id" ColumnName="Courses_Id" />
-      </EndProperty>
-      <EndProperty Name="Student">
-        <ScalarProperty Name="Id" ColumnName="Students_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="CourseTeacher" TypeName="DatabaseModel.CourseTeacher" StoreEntitySet="CourseSet">
-      <EndProperty Name="Teacher">
-        <ScalarProperty Name="Id" ColumnName="Teacher_Id" />
-      </EndProperty>
-      <EndProperty Name="Course">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <Condition ColumnName="Teacher_Id" IsNull="false" />
-    </AssociationSetMapping>
+          <AssociationSetMapping Name="CourseStudent" TypeName="DatabaseModel.CourseStudent" StoreEntitySet="CourseStudent" />
+          <EntitySetMapping Name="UserSet">
+            <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.Student)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+              <MappingFragment StoreEntitySet="StudentSet">
+                </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.Teacher)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+              <MappingFragment StoreEntitySet="TeacherSet">
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CourseTeacher" TypeName="DatabaseModel.CourseTeacher" StoreEntitySet="CourseSet">
+            <EndProperty Name="Course">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

@@ -87,6 +87,9 @@
     <Compile Include="Exam.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExamAttempt.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExamType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -95,6 +98,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Teacher.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

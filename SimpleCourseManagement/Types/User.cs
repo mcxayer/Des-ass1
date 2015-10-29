@@ -12,16 +12,11 @@ namespace ClassLibrary
     using System;
     using System.Collections.Generic;
     
-    public partial class Teacher : User
+    public abstract partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Teacher()
-        {
-            this.Courses = new HashSet<Course>();
-        }
-    
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Courses { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string FamilyName { get; private set; }
+        public string Email { get; private set; }
     }
 }
