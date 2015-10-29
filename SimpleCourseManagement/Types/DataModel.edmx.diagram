@@ -19,6 +19,8 @@
         <AssociationConnector Association="DatabaseModel.ExamExamAttempt" />
         <AssociationConnector Association="DatabaseModel.ExamAttemptStudent" />
         <AssociationConnector Association="DatabaseModel.ExamStudent" />
+        <EntityTypeShape EntityType="DatabaseModel.CourseType" Width="1.5" PointX="1.25" PointY="10.875" />
+        <AssociationConnector Association="DatabaseModel.CourseTypeCourse" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

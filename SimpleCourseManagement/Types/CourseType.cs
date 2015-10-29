@@ -12,26 +12,19 @@ namespace ClassLibrary
     using System;
     using System.Collections.Generic;
     
-    public partial class Course
+    public partial class CourseType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Course()
+        public CourseType()
         {
-            this.Exams = new HashSet<Exam>();
-            this.Students = new HashSet<Student>();
+            this.Course = new HashSet<Course>();
         }
     
         public int Id { get; private set; }
-        public string InstanceName { get; private set; }
-        public string Ects { get; private set; }
-        public System.DateTime Schedule { get; private set; }
-        public int CourseTypeId { get; set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Exam> Exams { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
-        public virtual Teacher Teacher { get; set; }
-        public virtual CourseType CourseType { get; set; }
+        public virtual ICollection<Course> Course { get; set; }
     }
 }

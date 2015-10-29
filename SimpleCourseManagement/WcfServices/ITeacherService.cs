@@ -31,7 +31,7 @@ namespace WcfServices
     }
 
     [DataContract]
-    public class GradeStatistics
+    public class GradeStatistics // DTO
     {
         [DataMember]
         public double AverageGradeExam { get; set; }

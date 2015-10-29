@@ -29,5 +29,6 @@ namespace ClassLibrary
         public virtual DbSet<Exam> ExamSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<ExamAttempt> ExamAttemptSet { get; set; }
+        public virtual DbSet<CourseType> CourseTypeSet { get; set; }
     }
 }

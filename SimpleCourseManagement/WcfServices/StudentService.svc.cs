@@ -3,39 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.ServiceModel.Web;
 using System.Text;
 
 namespace WcfServices
 {
-    public class TeacherService : ITeacherService
+    public class StudentService : IStudentService
     {
-        public void CreateExam(int courseId, bool reexam = false)
+        public Schedule GetCourseSchedule(int courseId)
         {
             throw new NotImplementedException();
         }
 
-        public GradeStatistics GetCourseGradeStatistics(int courseId)
+        public double GetExamGrade(int studentId, int courseId)
         {
             throw new NotImplementedException();
         }
 
-        public List<int> GetCourseIds()
+        public List<double> GetExamGrades(int studentId)
         {
             throw new NotImplementedException();
         }
 
-        public List<int> GetCourseStudentIds(int courseId)
+        public void RegisterCourse(int studentId, int courseId)
         {
             throw new NotImplementedException();
         }
 
-        public List<double> GetExamGrades(int courseId, bool reexam = false)
+        public void RegisterExam(int studentId, int examId)
         {
             throw new NotImplementedException();
         }
 
-        public void GradeExam(int examId, int studentId, double grade)
+        public void RegisterStudent(string name, string familyName, string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnregisterCourse(int studentId, int courseId)
         {
             throw new NotImplementedException();
         }
