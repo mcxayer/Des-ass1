@@ -64,7 +64,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="InstanceName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Ects" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Schedule" Type="datetime" Nullable="false" />
@@ -78,13 +78,12 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="CourseId" Type="int" Nullable="false" />
-    <Property Name="Reexam" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="UserSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="FamilyName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
@@ -94,7 +93,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Grade" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Grade" Type="float" Nullable="false" />
     <Property Name="ExamId" Type="int" Nullable="false" />
     <Property Name="Student_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -102,7 +101,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
@@ -321,26 +320,25 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="InstanceName" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Ects" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Schedule" Type="DateTime" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Id" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InstanceName" Type="String" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Ects" Type="String" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Schedule" Type="DateTime" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Exams" Relationship="DatabaseModel.CourseExam" FromRole="Course" ToRole="Exam" />
           <NavigationProperty Name="Students" Relationship="DatabaseModel.CourseStudent" FromRole="Course" ToRole="Student" />
           <NavigationProperty Name="Teacher" Relationship="DatabaseModel.CourseTeacher" FromRole="Course" ToRole="Teacher" />
           <NavigationProperty Name="CourseType" Relationship="DatabaseModel.CourseTypeCourse" FromRole="Course" ToRole="CourseType" />
-          <Property Name="CourseTypeId" Type="Int32" Nullable="false" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Name="CourseTypeId" Nullable="false" Type="Int32" />
         </EntityType>
         <EntityType Name="Exam">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Type" Type="DatabaseModel.ExamType" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Type" Type="DatabaseModel.ExamType" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Course" Relationship="DatabaseModel.CourseExam" FromRole="Exam" ToRole="Course" />
-          <Property Name="CourseId" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Name="CourseId" a:SetterAccess="Public" Nullable="false" Type="Int32" />
           <NavigationProperty Name="ExamAttempts" Relationship="DatabaseModel.ExamExamAttempt" FromRole="Exam" ToRole="ExamAttempt" />
-          <Property Name="Reexam" Type="Boolean" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Students" Relationship="DatabaseModel.ExamStudent" FromRole="Exam" ToRole="Student" />
         </EntityType>
         <EnumType Name="ExamType">
@@ -372,19 +370,19 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Name" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="FamilyName" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Email" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Id" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="FamilyName" Type="String" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Email" Type="String" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <EntityType Name="ExamAttempt">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Grade" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Grade" Type="Double" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Exam" Relationship="DatabaseModel.ExamExamAttempt" FromRole="ExamAttempt" ToRole="Exam" />
-          <Property Name="ExamId" Type="Int32" Nullable="false" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Name="ExamId" a:SetterAccess="Private" Nullable="false" Type="Int32" />
           <NavigationProperty Name="Student" Relationship="DatabaseModel.ExamAttemptStudent" FromRole="ExamAttempts" ToRole="Student" />
         </EntityType>
         <Association Name="ExamExamAttempt">
@@ -411,9 +409,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Name="Id" a:SetterAccess="Private" Nullable="false" Type="Int32" />
-          <Property Name="Name" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="Description" Type="String" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Name="Id" a:SetterAccess="Private" Nullable="false" Type="Int32" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Description" Type="String" Nullable="false" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Course" Relationship="DatabaseModel.CourseTypeCourse" FromRole="CourseType" ToRole="Course" />
         </EntityType>
         <Association Name="CourseTypeCourse">
@@ -451,7 +449,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-          <ScalarProperty Name="Reexam" ColumnName="Reexam" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

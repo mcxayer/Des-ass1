@@ -14,7 +14,7 @@ namespace WcfServices
             throw new NotImplementedException();
         }
 
-        public double GetExamGrade(int studentId, int courseId)
+        public double GetExamGrade(int studentId, int examId)
         {
             return 0d;
         }

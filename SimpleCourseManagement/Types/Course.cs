@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClassLibrary
+namespace Types
 {
     using System;
     using System.Collections.Generic;
@@ -22,9 +22,9 @@ namespace ClassLibrary
         }
     
         public int Id { get; private set; }
-        public string InstanceName { get; private set; }
-        public string Ects { get; private set; }
-        public System.DateTime Schedule { get; private set; }
+        public string InstanceName { get; set; }
+        public string Ects { get; set; }
+        public System.DateTime Schedule { get; set; }
         public int CourseTypeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

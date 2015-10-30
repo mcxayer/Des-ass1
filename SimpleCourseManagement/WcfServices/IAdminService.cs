@@ -36,9 +36,9 @@ namespace WcfServices
         public int Day { get; set; }
 
         [DataMember]
-        public int hour { get; set; }
+        public int Hour { get; set; }
 
         [DataMember]
-        public int minute { get; set; }
+        public int Minute { get; set; }
     }
 }

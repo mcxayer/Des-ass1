@@ -10,7 +10,7 @@ namespace WcfServices
 {
     public class TeacherService : ITeacherService
     {
-        public void CreateExam(int courseId, bool reexam = false)
+        public void CreateExam(int courseId, ExamType type)
         {
             throw new NotImplementedException();
         }
@@ -20,7 +20,7 @@ namespace WcfServices
             throw new NotImplementedException();
         }
 
-        public List<int> GetCourseIds()
+        public List<int> GetTeacherCourseIds(int teacherId)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +35,7 @@ namespace WcfServices
             throw new NotImplementedException();
         }
 
-        public void GradeExam(int examId, int studentId, double grade)
+        public void GradeExam(int examAttemptId, double grade)
         {
             throw new NotImplementedException();
         }

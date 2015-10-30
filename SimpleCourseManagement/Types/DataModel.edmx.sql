@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/29/2015 22:38:20
+-- Date Created: 10/30/2015 21:38:35
 -- Generated from EDMX file: C:\Skole\Software Engineering\3. Semester\DES\Afleveringsopgave 1\Des-ass1\SimpleCourseManagement\Types\DataModel.edmx
 -- --------------------------------------------------
 
@@ -41,6 +41,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ExamStudent_Student]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ExamStudent] DROP CONSTRAINT [FK_ExamStudent_Student];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CourseTypeCourse]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CourseSet] DROP CONSTRAINT [FK_CourseTypeCourse];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Student_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserSet_Student] DROP CONSTRAINT [FK_Student_inherits_User];
 GO
@@ -64,6 +67,9 @@ GO
 IF OBJECT_ID(N'[dbo].[ExamAttemptSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ExamAttemptSet];
 GO
+IF OBJECT_ID(N'[dbo].[CourseTypeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CourseTypeSet];
+GO
 IF OBJECT_ID(N'[dbo].[UserSet_Student]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserSet_Student];
 GO
@@ -83,7 +89,7 @@ GO
 
 -- Creating table 'CourseSet'
 CREATE TABLE [dbo].[CourseSet] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [InstanceName] nvarchar(max)  NOT NULL,
     [Ects] nvarchar(max)  NOT NULL,
     [Schedule] datetime  NOT NULL,
@@ -96,14 +102,13 @@ GO
 CREATE TABLE [dbo].[ExamSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Type] int  NOT NULL,
-    [CourseId] int  NOT NULL,
-    [Reexam] bit  NOT NULL
+    [CourseId] int  NOT NULL
 );
 GO
 
 -- Creating table 'UserSet'
 CREATE TABLE [dbo].[UserSet] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [FamilyName] nvarchar(max)  NOT NULL,
     [Email] nvarchar(max)  NOT NULL
@@ -113,7 +118,7 @@ GO
 -- Creating table 'ExamAttemptSet'
 CREATE TABLE [dbo].[ExamAttemptSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Grade] nvarchar(max)  NOT NULL,
+    [Grade] float  NOT NULL,
     [ExamId] int  NOT NULL,
     [Student_Id] int  NOT NULL
 );
@@ -121,7 +126,7 @@ GO
 
 -- Creating table 'CourseTypeSet'
 CREATE TABLE [dbo].[CourseTypeSet] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Description] nvarchar(max)  NOT NULL
 );

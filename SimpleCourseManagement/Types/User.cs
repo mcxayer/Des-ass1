@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClassLibrary
+namespace Types
 {
     using System;
     using System.Collections.Generic;
@@ -15,8 +15,8 @@ namespace ClassLibrary
     public abstract partial class User
     {
         public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string FamilyName { get; private set; }
-        public string Email { get; private set; }
+        public string Name { get; set; }
+        public string FamilyName { get; set; }
+        public string Email { get; set; }
     }
 }

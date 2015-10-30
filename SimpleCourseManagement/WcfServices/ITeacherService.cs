@@ -12,19 +12,19 @@ namespace WcfServices
     public interface ITeacherService
     {
         [OperationContract]
-        void CreateExam(int courseId, bool reexam = false);
+        void CreateExam(int courseId, ExamType type);
 
         [OperationContract]
         List<int> GetCourseStudentIds(int courseId);
 
         [OperationContract]
-        void GradeExam(int examId, int studentId, double grade);
+        void GradeExam(int examAttemptId, double grade);
 
         [OperationContract]
         List<double> GetExamGrades(int courseId, bool reexam = false);
 
         [OperationContract]
-        List<int> GetCourseIds();
+        List<int> GetTeacherCourseIds(int teacherId);
 
         [OperationContract]
         GradeStatistics GetCourseGradeStatistics(int courseId);
@@ -44,5 +44,18 @@ namespace WcfServices
 
         [DataMember]
         public double FailRateReexam { get; set; }
+    }
+
+    [DataContract]
+    public enum ExamType : int
+    {
+        [EnumMember]
+        Oral = 0,
+
+        [EnumMember]
+        Written,
+
+        [EnumMember]
+        EssayReport
     }
 }

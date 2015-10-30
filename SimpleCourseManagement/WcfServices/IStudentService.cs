@@ -26,7 +26,7 @@ namespace WcfServices
         void RegisterExam(int studentId, int examId);
 
         [OperationContract]
-        double GetExamGrade(int studentId, int courseId);
+        double GetExamGrade(int studentId, int examId);
 
         [OperationContract]
         List<double> GetExamGrades(int studentId);

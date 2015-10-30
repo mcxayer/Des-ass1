@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClassLibrary
+namespace Types
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace ClassLibrary
     public partial class ExamAttempt
     {
         public int Id { get; private set; }
-        public string Grade { get; private set; }
+        public double Grade { get; set; }
         public int ExamId { get; private set; }
     
         public virtual Exam Exam { get; set; }

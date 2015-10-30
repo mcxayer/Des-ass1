@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClassLibrary
+namespace Types
 {
     using System;
     using System.Collections.Generic;
@@ -22,9 +22,8 @@ namespace ClassLibrary
         }
     
         public int Id { get; private set; }
-        public ExamType Type { get; private set; }
-        public int CourseId { get; private set; }
-        public bool Reexam { get; private set; }
+        public ExamType Type { get; set; }
+        public int CourseId { get; set; }
     
         public virtual Course Course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

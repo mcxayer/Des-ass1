@@ -8,9 +8,10 @@ using WcfServices;
 
 namespace GUI.Facade
 {
-    class ServiceFacade
+    sealed class ServiceFacade
     {
-        public static readonly ServiceFacade Instance = new ServiceFacade();
+        private static readonly ServiceFacade instance = new ServiceFacade();
+        public static ServiceFacade Instance { get { return instance; } }
 
         private ChannelFactory<IStudentService> serviceChannelFactory;
         private IStudentService serviceProxy;

@@ -7,8 +7,8 @@
     <ProjectGuid>{E4E0EC67-7FC4-4C64-8BAC-FCE567D4F4DE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary</RootNamespace>
-    <AssemblyName>ClassLibrary</AssemblyName>
+    <RootNamespace>Types</RootNamespace>
+    <AssemblyName>Types</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
