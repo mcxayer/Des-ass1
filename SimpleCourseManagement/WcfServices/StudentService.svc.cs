@@ -16,7 +16,7 @@ namespace WcfServices
 
         public double GetExamGrade(int studentId, int courseId)
         {
-            throw new NotImplementedException();
+            return 0d;
         }
 
         public List<double> GetExamGrades(int studentId)
