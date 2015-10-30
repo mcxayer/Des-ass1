@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/29/2015 22:38:20
--- Generated from EDMX file: C:\Skole\Software Engineering\3. Semester\DES\Afleveringsopgave 1\Des-ass1\SimpleCourseManagement\Types\DataModel.edmx
+-- Date Created: 10/30/2015 13:25:32
+-- Generated from EDMX file: C:\Users\Hivemaster\Documents\GitHubVisualStudio\Des-ass1\SimpleCourseManagement\Types\DataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -41,6 +41,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ExamStudent_Student]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ExamStudent] DROP CONSTRAINT [FK_ExamStudent_Student];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CourseTypeCourse]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CourseSet] DROP CONSTRAINT [FK_CourseTypeCourse];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Student_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserSet_Student] DROP CONSTRAINT [FK_Student_inherits_User];
 GO
@@ -63,6 +66,9 @@ IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ExamAttemptSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ExamAttemptSet];
+GO
+IF OBJECT_ID(N'[dbo].[CourseTypeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CourseTypeSet];
 GO
 IF OBJECT_ID(N'[dbo].[UserSet_Student]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserSet_Student];
