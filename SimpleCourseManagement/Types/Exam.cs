@@ -14,12 +14,22 @@ namespace ClassLibrary
     
     public partial class Exam
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Exam()
+        {
+            this.ExamAttempts = new HashSet<ExamAttempt>();
+            this.Students = new HashSet<Student>();
+        }
+    
         public int Id { get; private set; }
         public ExamType Type { get; private set; }
         public int CourseId { get; private set; }
-        public double Grade { get; private set; }
+        public bool Reexam { get; private set; }
     
         public virtual Course Course { get; set; }
-        public virtual Student Student { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExamAttempt> ExamAttempts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

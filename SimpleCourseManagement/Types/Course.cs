@@ -22,16 +22,16 @@ namespace ClassLibrary
         }
     
         public int Id { get; private set; }
-        public string Name { get; private set; }
         public string InstanceName { get; private set; }
-        public string Description { get; private set; }
         public string Ects { get; private set; }
         public System.DateTime Schedule { get; private set; }
+        public int CourseTypeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exam> Exams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
         public virtual Teacher Teacher { get; set; }
+        public virtual CourseType CourseType { get; set; }
     }
 }

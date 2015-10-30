@@ -25,9 +25,10 @@ namespace ClassLibrary
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Teacher> TeacherSet { get; set; }
-        public virtual DbSet<Student> StudentSet { get; set; }
         public virtual DbSet<Course> CourseSet { get; set; }
         public virtual DbSet<Exam> ExamSet { get; set; }
+        public virtual DbSet<User> UserSet { get; set; }
+        public virtual DbSet<ExamAttempt> ExamAttemptSet { get; set; }
+        public virtual DbSet<CourseType> CourseTypeSet { get; set; }
     }
 }
