@@ -56,5 +56,10 @@ namespace GUI.Facade
         {
             return serviceProxy.GetExamGrades(studentId);
         }
+
+        public int GetStudentId(String email)
+        {
+            return serviceProxy.GetStudentId(email);
+        }
     }
 }

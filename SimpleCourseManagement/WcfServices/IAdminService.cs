@@ -11,15 +11,19 @@ namespace WcfServices
     public interface IAdminService
     {
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         void CreateCourseType(String name, String description);
 
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         void CreateCourseInstance(int courseTypeId, String instanceName, String ects, Schedule schedule);
 
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         void AssignCourseTeacher(int teacherId, int courseId);
 
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         void SetCourseSchedule(int courseId, Schedule schedule);
     }
 

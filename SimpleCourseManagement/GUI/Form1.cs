@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI.Facade;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,17 @@ namespace GUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ServiceFacade.Instance.RegisterStudent("hej", "med", "dig@uni.dk");
+            int studentId = ServiceFacade.Instance.GetStudentId("dig@uni.dk");
 
+            try
+            {
+                ServiceFacade.Instance.RegisterCourse(studentId, 1);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

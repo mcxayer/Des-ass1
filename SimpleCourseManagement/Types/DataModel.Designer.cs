@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Hivemaster\Documents\GitHubVisualStudio\Des-ass1\SimpleCourseManagement\Types\DataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Skole\Software Engineering\3. Semester\DES\Afleveringsopgave 1\Des-ass1\SimpleCourseManagement\Types\DataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -11,37 +11,98 @@ namespace WcfServices
     {
         public Schedule GetCourseSchedule(int courseId)
         {
-            return DomainFacade.Instance.GetCourseSchedule(courseId);
+            try
+            {
+                return DomainFacade.Instance.GetCourseSchedule(courseId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get course schedule!");
+            }
         }
 
         public double GetExamGrade(int studentId, int examId)
         {
-            return DomainFacade.Instance.GetStudentExamGrade(studentId, examId);
+            try
+            {
+                return DomainFacade.Instance.GetStudentExamGrade(studentId, examId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get student exam grade!");
+            }
         }
 
         public List<double> GetExamGrades(int studentId)
         {
-            return DomainFacade.Instance.GetStudentExamGrades(studentId);
+            try
+            {
+                return DomainFacade.Instance.GetStudentExamGrades(studentId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get student exam grades!");
+            }
+        }
+
+        public int GetStudentId(String email)
+        {
+            try
+            {
+                return DomainFacade.Instance.GetStudentId(email);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get student id!");
+            }
         }
 
         public void RegisterCourse(int studentId, int courseId)
         {
-            DomainFacade.Instance.RegisterCourse(studentId, courseId);
+            try
+            {
+                DomainFacade.Instance.RegisterCourse(studentId, courseId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to register student to course!");
+            }
         }
 
         public void RegisterExam(int studentId, int examId)
         {
-            DomainFacade.Instance.RegisterExam(studentId, examId);
+            try
+            {
+                DomainFacade.Instance.RegisterExam(studentId, examId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to register student to exam!");
+            }
         }
 
         public void RegisterStudent(string name, string familyName, string email)
         {
-            DomainFacade.Instance.RegisterStudent(name, familyName, email);
+            try
+            {
+                DomainFacade.Instance.RegisterStudent(name, familyName, email);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to register student!");
+            }
         }
 
         public void UnregisterCourse(int studentId, int courseId)
         {
-            DomainFacade.Instance.UnregisterCourse(studentId, courseId);
+            try
+            {
+                DomainFacade.Instance.UnregisterCourse(studentId, courseId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to unregister student!");
+            }
         }
     }
 }

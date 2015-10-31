@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Web;
 using Types;
 
@@ -27,7 +28,7 @@ namespace WcfServices
 
         public void CreateCourseInstance(int courseTypeId, String instanceName, String ects, Schedule schedule)
         {
-            dbFacade.CreateCourseInstance(ObjectFactory.Instance.CreateCourse(courseTypeId,instanceName, ects, schedule));
+            dbFacade.CreateCourseInstance(ObjectFactory.Instance.CreateCourse(courseTypeId, instanceName, ects, schedule));
         }
 
         public void AssignCourseTeacher(int teacherId, int courseId)
@@ -77,6 +78,11 @@ namespace WcfServices
         public List<double> GetStudentExamGrades(int studentId)
         {
             return dbFacade.GetExamGrades(studentId);
+        }
+
+        public int GetStudentId(String email)
+        {
+            return dbFacade.GetStudentId(email);
         }
 
         #endregion

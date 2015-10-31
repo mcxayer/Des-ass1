@@ -111,6 +111,10 @@ namespace WcfServices
 
             using (DatabaseEntities db = new DatabaseEntities())
             {
+                db.Database.Connection.Open();
+
+                Console.WriteLine(db.Database.Connection.ConnectionString);
+
                 db.UserSet.Add(student);
                 db.SaveChanges();
             }
@@ -297,6 +301,21 @@ namespace WcfServices
                 return (from ea in db.ExamAttemptSet
                         where ea.Student.Id == studentId
                         select ea.Grade).ToList();
+            }
+        }
+
+        public int GetStudentId(String email)
+        {
+            if(String.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("email can not be null or empty!");
+            }
+
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                return (from u in db.UserSet
+                        where u.Email.Equals(email)
+                        select u.Id).FirstOrDefault();
             }
         }
 

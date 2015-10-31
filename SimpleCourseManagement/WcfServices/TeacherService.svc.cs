@@ -12,13 +12,29 @@ namespace WcfServices
     {
         public void CreateExam(int courseId, ExamType type)
         {
-            DomainFacade.Instance.CreateExam(courseId, type);
+            try
+            {
+                DomainFacade.Instance.CreateExam(courseId, type);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to create exam!");
+            }
         }
 
         public GradeStatistics GetCourseGradeStatistics(int courseId)
         {
-            List<double> examGrades = DomainFacade.Instance.GetExamGrades(courseId,false);
-            List<double> reexamGrades = DomainFacade.Instance.GetExamGrades(courseId, true);
+            List<double> examGrades = null; 
+            List<double> reexamGrades = null; 
+            try
+            {
+                examGrades = DomainFacade.Instance.GetExamGrades(courseId, false);
+                reexamGrades = DomainFacade.Instance.GetExamGrades(courseId, true);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get course grade statistics!");
+            }
 
             double totalExamGrade = 0;
             int failCountExam = 0;
@@ -72,22 +88,50 @@ namespace WcfServices
 
         public List<int> GetTeacherCourseIds(int teacherId)
         {
-            return DomainFacade.Instance.GetTeacherCourseIds(teacherId);
+            try
+            {
+                return DomainFacade.Instance.GetTeacherCourseIds(teacherId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get teacher course ids!");
+            }
         }
 
         public List<int> GetCourseStudentIds(int courseId)
         {
-            return DomainFacade.Instance.GetCourseStudentIds(courseId);
+            try
+            {
+                return DomainFacade.Instance.GetCourseStudentIds(courseId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get course student ids!");
+            }
         }
 
         public List<double> GetExamGrades(int courseId, bool reexam = false)
         {
-            return DomainFacade.Instance.GetExamGrades(courseId, reexam);
+            try
+            {
+                return DomainFacade.Instance.GetExamGrades(courseId, reexam);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get course exam grades!");
+            }
         }
 
         public void GradeExam(int examAttemptId, double grade)
         {
-            DomainFacade.Instance.GradeExam(examAttemptId, grade);
+            try
+            {
+                DomainFacade.Instance.GradeExam(examAttemptId, grade);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to grade exam!");
+            }
         }
     }
 }

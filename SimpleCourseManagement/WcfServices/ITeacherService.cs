@@ -12,21 +12,27 @@ namespace WcfServices
     public interface ITeacherService
     {
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         void CreateExam(int courseId, ExamType type);
 
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         List<int> GetCourseStudentIds(int courseId);
 
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         void GradeExam(int examAttemptId, double grade);
 
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         List<double> GetExamGrades(int courseId, bool reexam = false);
 
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         List<int> GetTeacherCourseIds(int teacherId);
 
         [OperationContract]
+        [FaultContract(typeof(FaultException))]
         GradeStatistics GetCourseGradeStatistics(int courseId);
     }
 
