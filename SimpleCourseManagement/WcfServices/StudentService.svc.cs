@@ -11,37 +11,37 @@ namespace WcfServices
     {
         public Schedule GetCourseSchedule(int courseId)
         {
-            throw new NotImplementedException();
+            return DomainFacade.Instance.GetCourseSchedule(courseId);
         }
 
         public double GetExamGrade(int studentId, int examId)
         {
-            return 0d;
+            return DomainFacade.Instance.GetStudentExamGrade(studentId, examId);
         }
 
         public List<double> GetExamGrades(int studentId)
         {
-            throw new NotImplementedException();
+            return DomainFacade.Instance.GetStudentExamGrades(studentId);
         }
 
         public void RegisterCourse(int studentId, int courseId)
         {
-            throw new NotImplementedException();
+            DomainFacade.Instance.RegisterCourse(studentId, courseId);
         }
 
         public void RegisterExam(int studentId, int examId)
         {
-            throw new NotImplementedException();
+            DomainFacade.Instance.RegisterExam(studentId, examId);
         }
 
         public void RegisterStudent(string name, string familyName, string email)
         {
-            throw new NotImplementedException();
+            DomainFacade.Instance.RegisterStudent(name, familyName, email);
         }
 
         public void UnregisterCourse(int studentId, int courseId)
         {
-            throw new NotImplementedException();
+            DomainFacade.Instance.UnregisterCourse(studentId, courseId);
         }
     }
 }

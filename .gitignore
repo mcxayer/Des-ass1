@@ -4,3 +4,19 @@
 
 /SimpleCourseManagement/.vs
 /SimpleCourseManagement/WcfServices/WcfServices.csproj.user
+/SimpleCourseManagement/GUI/bin/Debug
+/SimpleCourseManagement/Host/bin/Debug
+/SimpleCourseManagement/Host/obj/Debug
+/SimpleCourseManagement/GUI/obj/Debug
+/SimpleCourseManagement/Types/obj/Debug
+/SimpleCourseManagement/WcfServices/bin
+/SimpleCourseManagement/WcfServices/obj/Debug
+/SimpleCourseManagement/Types/bin/Debug/Types.pdb
+/SimpleCourseManagement/Types/bin/Debug/Types.dll.config
+/SimpleCourseManagement/Types/bin/Debug/Types.dll
+/SimpleCourseManagement/Types/bin/Debug/EntityFramework.xml
+/SimpleCourseManagement/Types/bin/Debug/EntityFramework.SqlServer.xml
+/SimpleCourseManagement/Types/bin/Debug/EntityFramework.SqlServer.dll
+/SimpleCourseManagement/Types/bin/Debug/EntityFramework.dll
+/SimpleCourseManagement/Types/bin/Debug/Database_log.ldf
+/SimpleCourseManagement/Types/bin/Debug/Database.mdf

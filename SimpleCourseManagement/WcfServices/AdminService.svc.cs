@@ -11,22 +11,22 @@ namespace WcfServices
     {
         public void AssignCourseTeacher(int teacherId, int courseId)
         {
-            throw new NotImplementedException();
+            DomainFacade.Instance.AssignCourseTeacher(teacherId, courseId);
         }
 
         public void CreateCourseInstance(int courseTypeId, string instanceName, string ects, Schedule schedule)
         {
-            throw new NotImplementedException();
+            DomainFacade.Instance.CreateCourseInstance(courseTypeId, instanceName, ects, schedule);
         }
 
         public void CreateCourseType(string name, string description)
         {
-            throw new NotImplementedException();
+            DomainFacade.Instance.CreateCourseType(name, description);
         }
 
         public void SetCourseSchedule(int courseId, Schedule schedule)
         {
-            throw new NotImplementedException();
+            DomainFacade.Instance.SetCourseSchedule(courseId, schedule);
         }
     }
 }

@@ -8,9 +8,12 @@ namespace WcfServices
 {
     public class DomainFacade
     {
+        private static readonly DomainFacade instance = new DomainFacade();
+        public static DomainFacade Instance { get { return instance; } }
+
         private DatabaseFacade dbFacade;
 
-        public DomainFacade()
+        private DomainFacade()
         {
             dbFacade = new DatabaseFacade();
         }
@@ -66,12 +69,12 @@ namespace WcfServices
             dbFacade.RegisterExam(studentId, examId);
         }
 
-        public double GetExamGrade(int studentId, int examId)
+        public double GetStudentExamGrade(int studentId, int examId)
         {
             return dbFacade.GetExamGrade(studentId, examId);
         }
 
-        public List<double> GetExamGrades(int studentId)
+        public List<double> GetStudentExamGrades(int studentId)
         {
             return dbFacade.GetExamGrades(studentId);
         }
