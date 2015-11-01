@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WcfServices;
 
 namespace GUI
 {
@@ -47,6 +48,20 @@ namespace GUI
             String coursestring = textBox1.Text;
             int courseid = Int32.Parse(coursestring);
             ServiceFacade.Instance.UnregisterCourse(id, courseid);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            String coursestring = textBox2.Text;
+            int courseid = Int32.Parse(coursestring);
+            Schedule course = ServiceFacade.Instance.GetCourseSchedule(courseid);
+            int day = course.Day;
+            int month = course.Month;
+            int year = course.Year;
+            int minute = course.Minute;
+            int hour = course.Hour;
+            String date = "time " + hour + " " + minute + ": date " + day + " " + month + " " + year;
+            label4.Text = date;
         }
     }
 }
