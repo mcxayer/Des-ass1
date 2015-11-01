@@ -77,7 +77,6 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Name";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -96,7 +95,6 @@
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Email";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // Form2
             // 
