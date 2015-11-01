@@ -21,5 +21,11 @@ namespace GUI
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form4 f4 = new Form4();
+            f4.ShowDialog();
+        }
     }
 }

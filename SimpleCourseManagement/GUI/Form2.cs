@@ -26,5 +26,24 @@ namespace GUI
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String name = textBox1.Text;
+            String famName = textBox2.Text;
+            String email = textBox3.Text;
+            ServiceFacade.Instance.RegisterStudent(name, famName, email);
+            this.Close();
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

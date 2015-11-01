@@ -33,10 +33,7 @@ namespace GUI
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -47,10 +44,14 @@ namespace GUI
         {
             Form2 f2 = new Form2();
             f2.ShowDialog();
-            this.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
