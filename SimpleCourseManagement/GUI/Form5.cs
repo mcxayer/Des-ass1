@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GUI.Facade;
+using System.ServiceModel;
 
 namespace GUI
 {
@@ -18,9 +19,17 @@ namespace GUI
         {
             InitializeComponent();
             id = studentid;
-            List<double> allGrades = ServiceFacade.Instance.GetExamGrades(id);
-            String grade = string.Join(",", allGrades.ToArray());
-            richTextBox1.Text = grade;
+
+            try
+            {
+                List<double> allGrades = ServiceFacade.Instance.GetExamGrades(id);
+                String grade = string.Join(",", allGrades.ToArray());
+                richTextBox1.Text = grade;
+            }
+            catch (FaultException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -36,9 +45,23 @@ namespace GUI
         private void button3_Click(object sender, EventArgs e)
         {
             String examstring = textBox1.Text;
-            int examid = Int32.Parse(examstring);
-            double grade = ServiceFacade.Instance.GetExamGrade(id, examid);
-            label1.Text = grade.ToString();
+
+            try
+            {
+                int examid = Int32.Parse(examstring);
+                double grade = ServiceFacade.Instance.GetExamGrade(id, examid);
+
+                label1.Text = grade.ToString();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Exam id could not be parsed!");
+            }
+            catch (FaultException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
