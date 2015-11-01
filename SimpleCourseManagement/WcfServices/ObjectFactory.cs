@@ -59,7 +59,7 @@ namespace WcfServices
         {
             if (schedule == null)
             {
-                throw new ArgumentNullException("schedule");
+                return DateTime.MaxValue;
             }
 
             return new DateTime(schedule.Year, schedule.Month, schedule.Day, schedule.Hour, schedule.Minute, 0);
@@ -113,6 +113,31 @@ namespace WcfServices
             {
                 CourseId = courseId,
                 Type = (Types.ExamType)type
+            };
+        }
+
+        public Teacher CreateTeacher(String name, String familyName, String email)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("name can not be null or empty!");
+            }
+
+            if (String.IsNullOrEmpty(familyName))
+            {
+                throw new ArgumentException("familyName can not be null or empty!");
+            }
+
+            if (String.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("email can not be null or empty!");
+            }
+
+            return new Teacher()
+            {
+                Name = name,
+                FamilyName = familyName,
+                Email = email
             };
         }
     }

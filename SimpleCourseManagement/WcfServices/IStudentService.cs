@@ -36,7 +36,7 @@ namespace WcfServices
 
         [OperationContract]
         [FaultContract(typeof(FaultException))]
-        List<double> GetExamGrades(int studentId);
+        List<double> GetStudentExamGrades(int studentId);
 
         [OperationContract]
         [FaultContract(typeof(FaultException))]

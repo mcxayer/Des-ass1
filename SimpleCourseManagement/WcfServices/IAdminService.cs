@@ -12,15 +12,35 @@ namespace WcfServices
     {
         [OperationContract]
         [FaultContract(typeof(FaultException))]
-        void CreateCourseType(String name, String description);
-
-        [OperationContract]
-        [FaultContract(typeof(FaultException))]
-        void CreateCourseInstance(int courseTypeId, String instanceName, String ects, Schedule schedule);
-
-        [OperationContract]
-        [FaultContract(typeof(FaultException))]
         void AssignCourseTeacher(int teacherId, int courseId);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        int CreateCourseInstance(int courseTypeId, String instanceName, String ects, Schedule schedule = null);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        int CreateCourseType(String name, String description);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        int CreateTeacher(String name, String familyName, String email);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        List<int> GetAllCourseIds();
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        List<int> GetAllTeacherIds();
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        List<String> GetCourseInfo(int courseId);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        List<String> GetTeacherInfo(int teacherId);
 
         [OperationContract]
         [FaultContract(typeof(FaultException))]

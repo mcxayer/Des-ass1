@@ -33,7 +33,7 @@ namespace WcfServices
             }
         }
 
-        public List<double> GetExamGrades(int studentId)
+        public List<double> GetStudentExamGrades(int studentId)
         {
             try
             {

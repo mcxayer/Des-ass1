@@ -8,23 +8,9 @@ namespace WcfServices
 {
     public class DatabaseFacade
     {
-        #region admin services
+        #region course
 
-        public void CreateCourseType(CourseType courseType)
-        {
-            if (courseType == null)
-            {
-                throw new ArgumentNullException("courseType");
-            }
-
-            using (DatabaseEntities db = new DatabaseEntities())
-            {
-                db.CourseTypeSet.Add(courseType);
-                db.SaveChanges();
-            }
-        }
-
-        public void CreateCourseInstance(Course course)
+        public int CreateCourseInstance(Course course)
         {
             if (course == null)
             {
@@ -35,16 +21,37 @@ namespace WcfServices
             {
                 db.CourseSet.Add(course);
                 db.SaveChanges();
+
+                return course.Id;
             }
         }
 
-        public void AssignCourseTeacher(int teacherId, int courseId)
+        public int CreateCourseType(CourseType courseType)
         {
-            if (teacherId < 0)
+            if (courseType == null)
             {
-                throw new ArgumentOutOfRangeException("teacherId", "teacherId can not be less than zero!");
+                throw new ArgumentNullException("courseType");
             }
 
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                db.CourseTypeSet.Add(courseType);
+                db.SaveChanges();
+
+                return courseType.Id;
+            }
+        }
+
+        public List<int> GetAllCourseIds()
+        {
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                return (from c in db.CourseSet select c.Id).ToList();
+            }
+        }
+
+        public List<string> GetCourseInfo(int courseId)
+        {
             if (courseId < 0)
             {
                 throw new ArgumentOutOfRangeException("courseId", "courseId can not be less than zero!");
@@ -52,15 +59,41 @@ namespace WcfServices
 
             using (DatabaseEntities db = new DatabaseEntities())
             {
-                Teacher teacher = (from u in db.UserSet
-                                   where u.Id == teacherId
-                                   select u).FirstOrDefault() as Teacher;
+                Course course = (from c in db.CourseSet
+                                where c.Id == courseId
+                                select c).FirstOrDefault();
 
-                if (teacher == null)
+                if (course == null)
                 {
-                    throw new ArgumentException("teacherId is not a valid id!");
+                    throw new ArgumentException("courseId is not a valid id!");
                 }
 
+                List<string> courseInfo = new List<string>();
+                courseInfo.Add(course.Id.ToString());
+                courseInfo.Add(course.CourseType.Name);
+                courseInfo.Add(course.InstanceName);
+                courseInfo.Add(course.CourseType.Description);
+                courseInfo.Add(course.Ects);
+
+                if(course.Teacher != null)
+                {
+                    courseInfo.Add(course.Teacher.Id.ToString());
+                    courseInfo.Add(course.Teacher.Name);
+                }
+
+                return courseInfo;
+            }
+        }
+
+        public DateTime GetCourseSchedule(int courseId)
+        {
+            if (courseId < 0)
+            {
+                throw new ArgumentOutOfRangeException("courseId", "courseId can not be less than zero!");
+            }
+
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
                 Course course = (from c in db.CourseSet
                                  where c.Id == courseId
                                  select c).FirstOrDefault();
@@ -70,8 +103,31 @@ namespace WcfServices
                     throw new ArgumentException("courseId is not a valid id!");
                 }
 
-                course.Teacher = teacher;
-                db.SaveChanges();
+                return course.Schedule;
+            }
+        }
+
+        public List<int> GetCourseStudentIds(int courseId)
+        {
+            if (courseId < 0)
+            {
+                throw new ArgumentOutOfRangeException("courseId", "courseId can not be less than zero!");
+            }
+
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                var queryResults = (from c in db.CourseSet
+                                    where c.Id == courseId
+                                    select (from s in c.Students
+                                            select s.Id));
+
+                List<int> studentIds = new List<int>();
+                foreach (var queryResult in queryResults)
+                {
+                    studentIds.AddRange(queryResult);
+                }
+
+                return studentIds;
             }
         }
 
@@ -100,7 +156,22 @@ namespace WcfServices
 
         #endregion
 
-        #region student services
+        #region student
+
+        public int GetStudentId(String email)
+        {
+            if (String.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("email can not be null or empty!");
+            }
+
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                return (from u in db.UserSet
+                        where u.Email.Equals(email)
+                        select u.Id).FirstOrDefault();
+            }
+        }
 
         public void RegisterStudent(Student student)
         {
@@ -162,70 +233,6 @@ namespace WcfServices
             }
         }
 
-        public void UnregisterCourse(int studentId, int courseId)
-        {
-            if (studentId < 0)
-            {
-                throw new ArgumentOutOfRangeException("studentId", "studentId can not be less than zero!");
-            }
-
-            if (courseId < 0)
-            {
-                throw new ArgumentOutOfRangeException("courseId", "courseId can not be less than zero!");
-            }
-
-            using (DatabaseEntities db = new DatabaseEntities())
-            {
-                Student student = (from u in db.UserSet
-                                   where u.Id == studentId
-                                   select u).FirstOrDefault() as Student;
-
-                if (student == null)
-                {
-                    throw new ArgumentException("studentId is not a valid id!");
-                }
-
-                Course course = (from c in db.CourseSet
-                                 where c.Id == courseId
-                                 select c).FirstOrDefault();
-
-                if (course == null)
-                {
-                    throw new ArgumentException("courseId is not a valid id!");
-                }
-
-                if (!course.Students.Contains(student))
-                {
-                    throw new ArgumentException("student is already not registered!");
-                }
-
-                course.Students.Remove(student);
-                db.SaveChanges();
-            }
-        }
-
-        public DateTime GetCourseSchedule(int courseId)
-        {
-            if (courseId < 0)
-            {
-                throw new ArgumentOutOfRangeException("courseId", "courseId can not be less than zero!");
-            }
-
-            using (DatabaseEntities db = new DatabaseEntities())
-            {
-                Course course = (from c in db.CourseSet
-                                 where c.Id == courseId
-                                 select c).FirstOrDefault();
-
-                if (course == null)
-                {
-                    throw new ArgumentException("courseId is not a valid id!");
-                }
-
-                return course.Schedule;
-            }
-        }
-
         public void RegisterExam(int studentId, int examId)
         {
             if (studentId < 0)
@@ -268,60 +275,162 @@ namespace WcfServices
             }
         }
 
-        public double GetExamGrade(int studentId, int examId)
+        public void UnregisterCourse(int studentId, int courseId)
         {
             if (studentId < 0)
             {
                 throw new ArgumentOutOfRangeException("studentId", "studentId can not be less than zero!");
             }
 
-            if (examId < 0)
+            if (courseId < 0)
             {
-                throw new ArgumentOutOfRangeException("examId", "examId can not be less than zero!");
+                throw new ArgumentOutOfRangeException("courseId", "courseId can not be less than zero!");
             }
 
             using (DatabaseEntities db = new DatabaseEntities())
             {
-                return (from ea in db.ExamAttemptSet
-                        where ea.ExamId == examId
-                        where ea.Student.Id == studentId
-                        select ea.Grade).FirstOrDefault();
+                Student student = (from u in db.UserSet
+                                   where u.Id == studentId
+                                   select u).FirstOrDefault() as Student;
+
+                if (student == null)
+                {
+                    throw new ArgumentException("studentId is not a valid id!");
+                }
+
+                Course course = (from c in db.CourseSet
+                                 where c.Id == courseId
+                                 select c).FirstOrDefault();
+
+                if (course == null)
+                {
+                    throw new ArgumentException("courseId is not a valid id!");
+                }
+
+                if (!course.Students.Contains(student))
+                {
+                    throw new ArgumentException("student is already not registered!");
+                }
+
+                course.Students.Remove(student);
+                db.SaveChanges();
             }
         }
 
-        public List<double> GetExamGrades(int studentId)
+
+        #endregion
+
+        #region teacher
+
+        public void AssignCourseTeacher(int teacherId, int courseId)
         {
-            if (studentId < 0)
+            if (teacherId < 0)
             {
-                throw new ArgumentOutOfRangeException("studentId", "studentId can not be less than zero!");
+                throw new ArgumentOutOfRangeException("teacherId", "teacherId can not be less than zero!");
+            }
+
+            if (courseId < 0)
+            {
+                throw new ArgumentOutOfRangeException("courseId", "courseId can not be less than zero!");
             }
 
             using (DatabaseEntities db = new DatabaseEntities())
             {
-                return (from ea in db.ExamAttemptSet
-                        where ea.Student.Id == studentId
-                        select ea.Grade).ToList();
+                Teacher teacher = (from u in db.UserSet
+                                   where u.Id == teacherId
+                                   select u).FirstOrDefault() as Teacher;
+
+                if (teacher == null)
+                {
+                    throw new ArgumentException("teacherId is not a valid id!");
+                }
+
+                Course course = (from c in db.CourseSet
+                                 where c.Id == courseId
+                                 select c).FirstOrDefault();
+
+                if (course == null)
+                {
+                    throw new ArgumentException("courseId is not a valid id!");
+                }
+
+                course.Teacher = teacher;
+                db.SaveChanges();
             }
         }
 
-        public int GetStudentId(String email)
+        public int CreateTeacher(Teacher teacher)
         {
-            if(String.IsNullOrEmpty(email))
+            if (teacher == null)
             {
-                throw new ArgumentException("email can not be null or empty!");
+                throw new ArgumentNullException("teacher");
             }
 
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                db.UserSet.Add(teacher);
+                db.SaveChanges();
+
+                return teacher.Id;
+            }
+        }
+
+        public List<int> GetAllTeacherIds()
+        {
             using (DatabaseEntities db = new DatabaseEntities())
             {
                 return (from u in db.UserSet
-                        where u.Email.Equals(email)
-                        select u.Id).FirstOrDefault();
+                        where u is Teacher
+                        select u.Id).ToList();
+            }
+        }
+
+        public List<int> GetTeacherCourseIds(int teacherId)
+        {
+            if (teacherId < 0)
+            {
+                throw new ArgumentOutOfRangeException("teacherId", "teacherId can not be less than zero!");
+            }
+
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                return (from c in db.CourseSet
+                        where c.Teacher.Id == teacherId
+                        select c.Id).ToList();
+            }
+        }
+
+        public List<String> GetTeacherInfo(int teacherId)
+        {
+            if (teacherId < 0)
+            {
+                throw new ArgumentOutOfRangeException("teacherId", "teacherId can not be less than zero!");
+            }
+
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                Teacher teacher = (from u in db.UserSet
+                                   where u.Id == teacherId
+                                   select u).FirstOrDefault() as Teacher;
+
+                if (teacher == null)
+                {
+                    throw new ArgumentException("teacherId is not a valid id!");
+                }
+
+                List<String> teacherInfo = new List<String>();
+                teacherInfo.Add(teacher.Id.ToString());
+                teacherInfo.Add(teacher.Name);
+                teacherInfo.Add(teacher.FamilyName);
+                teacherInfo.Add(teacher.Email);
+
+                return teacherInfo;
             }
         }
 
         #endregion
 
-        #region teacher services
+        #region exam 
 
         public void CreateExam(Exam exam)
         {
@@ -356,59 +465,7 @@ namespace WcfServices
             }
         }
 
-        public List<int> GetCourseStudentIds(int courseId)
-        {
-            if (courseId < 0)
-            {
-                throw new ArgumentOutOfRangeException("courseId", "courseId can not be less than zero!");
-            }
-
-            using (DatabaseEntities db = new DatabaseEntities())
-            {
-                var queryResults = (from c in db.CourseSet
-                                    where c.Id == courseId
-                                    select (from s in c.Students
-                                            select s.Id));
-
-                List<int> studentIds = new List<int>();
-                foreach (var queryResult in queryResults)
-                {
-                    studentIds.AddRange(queryResult);
-                }
-
-                return studentIds;
-            }
-        }
-
-        public void GradeExam(int examAttemptId, double grade)
-        {
-            if (examAttemptId < 0)
-            {
-                throw new ArgumentOutOfRangeException("examAttemptId", "examAttemptId can not be less than zero!");
-            }
-
-            if (grade < 0)
-            {
-                throw new ArgumentOutOfRangeException("grade", "grade can not be less than zero!");
-            }
-
-            using (DatabaseEntities db = new DatabaseEntities())
-            {
-                ExamAttempt examAttempt = (from ea in db.ExamAttemptSet
-                                           where ea.Id == examAttemptId
-                                           select ea).FirstOrDefault();
-
-                if (examAttempt == null)
-                {
-                    throw new ArgumentException("examAttemptId is not a valid id!");
-                }
-
-                examAttempt.Grade = grade;
-                db.SaveChanges();
-            }
-        }
-
-        public List<double> GetExamGrades(int courseId, bool reexam = false)
+        public List<double> GetCourseExamGrades(int courseId, bool reexam = false)
         {
             if (courseId < 0)
             {
@@ -442,30 +499,67 @@ namespace WcfServices
             }
         }
 
-        public List<int> GetTeacherCourseIds(int teacherId)
+        public double GetStudentExamGrade(int studentId, int examId)
         {
-            if (teacherId < 0)
+            if (studentId < 0)
             {
-                throw new ArgumentOutOfRangeException("teacherId", "teacherId can not be less than zero!");
+                throw new ArgumentOutOfRangeException("studentId", "studentId can not be less than zero!");
+            }
+
+            if (examId < 0)
+            {
+                throw new ArgumentOutOfRangeException("examId", "examId can not be less than zero!");
             }
 
             using (DatabaseEntities db = new DatabaseEntities())
             {
-                return (from c in db.CourseSet
-                        where c.Teacher.Id == teacherId
-                        select c.Id).ToList();
+                return (from ea in db.ExamAttemptSet
+                        where ea.ExamId == examId
+                        where ea.Student.Id == studentId
+                        select ea.Grade).FirstOrDefault();
             }
         }
 
-        #endregion
-
-        #region other service
-
-        public List<int> GetAllCourseIds()
+        public List<double> GetStudentExamGrades(int studentId)
         {
+            if (studentId < 0)
+            {
+                throw new ArgumentOutOfRangeException("studentId", "studentId can not be less than zero!");
+            }
+
             using (DatabaseEntities db = new DatabaseEntities())
             {
-                return (from c in db.CourseSet select c.Id).ToList();
+                return (from ea in db.ExamAttemptSet
+                        where ea.Student.Id == studentId
+                        select ea.Grade).ToList();
+            }
+        }
+
+        public void GradeExam(int examAttemptId, double grade)
+        {
+            if (examAttemptId < 0)
+            {
+                throw new ArgumentOutOfRangeException("examAttemptId", "examAttemptId can not be less than zero!");
+            }
+
+            if (grade < 0)
+            {
+                throw new ArgumentOutOfRangeException("grade", "grade can not be less than zero!");
+            }
+
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                ExamAttempt examAttempt = (from ea in db.ExamAttemptSet
+                                           where ea.Id == examAttemptId
+                                           select ea).FirstOrDefault();
+
+                if (examAttempt == null)
+                {
+                    throw new ArgumentException("examAttemptId is not a valid id!");
+                }
+
+                examAttempt.Grade = grade;
+                db.SaveChanges();
             }
         }
 

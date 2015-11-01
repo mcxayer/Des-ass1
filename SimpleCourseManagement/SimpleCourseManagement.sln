@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfServices", "WcfServices\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentGUI", "GUI\StudentGUI.csproj", "{928F5E58-D2A1-4170-AEA7-DE11A4D33D90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminGUI", "AdminGUI\AdminGUI.csproj", "{4957918E-5939-432E-AB3E-A3E86E877238}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeacherGUI", "TeacherGUI\TeacherGUI.csproj", "{36307941-277F-4462-93E3-38454F86E19B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{928F5E58-D2A1-4170-AEA7-DE11A4D33D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{928F5E58-D2A1-4170-AEA7-DE11A4D33D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{928F5E58-D2A1-4170-AEA7-DE11A4D33D90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4957918E-5939-432E-AB3E-A3E86E877238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4957918E-5939-432E-AB3E-A3E86E877238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4957918E-5939-432E-AB3E-A3E86E877238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4957918E-5939-432E-AB3E-A3E86E877238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36307941-277F-4462-93E3-38454F86E19B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36307941-277F-4462-93E3-38454F86E19B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36307941-277F-4462-93E3-38454F86E19B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36307941-277F-4462-93E3-38454F86E19B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

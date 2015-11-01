@@ -28,8 +28,8 @@ namespace WcfServices
             List<double> reexamGrades = null; 
             try
             {
-                examGrades = DomainFacade.Instance.GetExamGrades(courseId, false);
-                reexamGrades = DomainFacade.Instance.GetExamGrades(courseId, true);
+                examGrades = DomainFacade.Instance.GetCourseExamGrades(courseId, false);
+                reexamGrades = DomainFacade.Instance.GetCourseExamGrades(courseId, true);
             }
             catch
             {
@@ -110,11 +110,11 @@ namespace WcfServices
             }
         }
 
-        public List<double> GetExamGrades(int courseId, bool reexam = false)
+        public List<double> GetCourseExamGrades(int courseId, bool reexam = false)
         {
             try
             {
-                return DomainFacade.Instance.GetExamGrades(courseId, reexam);
+                return DomainFacade.Instance.GetCourseExamGrades(courseId, reexam);
             }
             catch
             {

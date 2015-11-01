@@ -1,0 +1,51 @@
+﻿<Window x:Class="TeacherGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeacherGUI"
+        mc:Ignorable="d"
+        Title="Teacher system" Height="500" Width="900">
+    <TabControl x:Name="tabControl" Height="Auto" Width="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TabItem Header="Course">
+            <Grid Background="#FFE5E5E5">
+                <Label x:Name="label_Copy" Content="All courses" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="443"/>
+                <Label x:Name="label_Copy1" Content="Students signed up for course" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="443" Margin="443,0,0,0"/>
+                <ListView x:Name="lstCourses" HorizontalAlignment="Left" Height="415" Margin="0,26,0,0" VerticalAlignment="Top" Width="443" SelectionChanged="lstCourses_SelectionChanged" SelectionMode="Single">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding [0], Mode=TwoWay}"/>
+                            <GridViewColumn Header="Course name" Width="120" DisplayMemberBinding="{Binding [1]}"/>
+                            <GridViewColumn Header="Instance" Width="80" DisplayMemberBinding="{Binding [2]}"/>
+                            <GridViewColumn Header="ECTS" Width="40" DisplayMemberBinding="{Binding [4]}"/>
+                            <GridViewColumn Header="Teacher id" Width="70" DisplayMemberBinding="{Binding [5]}"/>
+                            <GridViewColumn Header="Teacher name" Width="100" DisplayMemberBinding="{Binding [6]}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <ListView x:Name="lstViewStudents" HorizontalAlignment="Left" Height="415" Margin="443,26,0,0" VerticalAlignment="Top" Width="443">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding [0]}"/>
+                            <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding [1]}"/>
+                            <GridViewColumn Header="Family name" Width="120" DisplayMemberBinding="{Binding [2]}"/>
+                            <GridViewColumn Header="Email" Width="120" DisplayMemberBinding="{Binding [3]}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Exam">
+            <Grid Background="#FFE5E5E5">
+            </Grid>
+        </TabItem>
+        <TabItem Header="Grading">
+            <Grid Background="#FFE5E5E5">
+            </Grid>
+        </TabItem>
+        <TabItem Header="My courses">
+            <Grid Background="#FFE5E5E5">
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>

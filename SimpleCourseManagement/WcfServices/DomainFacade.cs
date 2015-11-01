@@ -19,21 +19,36 @@ namespace WcfServices
             dbFacade = new DatabaseFacade();
         }
 
-        #region admin services
+        #region course
 
-        public void CreateCourseType(String name, String description)
+        public int CreateCourseInstance(int courseTypeId, String instanceName, String ects, Schedule schedule)
         {
-            dbFacade.CreateCourseType(ObjectFactory.Instance.CreateCourseType(name, description));
+            return dbFacade.CreateCourseInstance(ObjectFactory.Instance.CreateCourse(courseTypeId, instanceName, ects, schedule));
         }
 
-        public void CreateCourseInstance(int courseTypeId, String instanceName, String ects, Schedule schedule)
+        public int CreateCourseType(String name, String description)
         {
-            dbFacade.CreateCourseInstance(ObjectFactory.Instance.CreateCourse(courseTypeId, instanceName, ects, schedule));
+            return dbFacade.CreateCourseType(ObjectFactory.Instance.CreateCourseType(name, description));
         }
 
-        public void AssignCourseTeacher(int teacherId, int courseId)
+        public List<int> GetAllCourseIds()
         {
-            dbFacade.AssignCourseTeacher(teacherId, courseId);
+            return dbFacade.GetAllCourseIds();
+        }
+
+        public List<string> GetCourseInfo(int courseId)
+        {
+            return dbFacade.GetCourseInfo(courseId);
+        }
+
+        public Schedule GetCourseSchedule(int courseId)
+        {
+            return ObjectFactory.Instance.CreateSchedule(dbFacade.GetCourseSchedule(courseId));
+        }
+
+        public List<int> GetCourseStudentIds(int courseId)
+        {
+            return dbFacade.GetCourseStudentIds(courseId);
         }
 
         public void SetCourseSchedule(int courseId, Schedule schedule)
@@ -43,7 +58,12 @@ namespace WcfServices
 
         #endregion
 
-        #region student services
+        #region student
+
+        public int GetStudentId(String email)
+        {
+            return dbFacade.GetStudentId(email);
+        }
 
         public void RegisterStudent(String name, String familyName, String email)
         {
@@ -55,48 +75,68 @@ namespace WcfServices
             dbFacade.RegisterCourse(studentId, courseId);
         }
 
-        public void UnregisterCourse(int studentId, int courseId)
-        {
-            dbFacade.UnregisterCourse(studentId, courseId);
-        }
-
-        public Schedule GetCourseSchedule(int courseId)
-        {
-            return ObjectFactory.Instance.CreateSchedule(dbFacade.GetCourseSchedule(courseId));
-        }
-
         public void RegisterExam(int studentId, int examId)
         {
             dbFacade.RegisterExam(studentId, examId);
         }
 
-        public double GetStudentExamGrade(int studentId, int examId)
+        public void UnregisterCourse(int studentId, int courseId)
         {
-            return dbFacade.GetExamGrade(studentId, examId);
+            dbFacade.UnregisterCourse(studentId, courseId);
         }
 
-        public List<double> GetStudentExamGrades(int studentId)
+
+        #endregion
+
+        #region teacher
+
+        public void AssignCourseTeacher(int teacherId, int courseId)
         {
-            return dbFacade.GetExamGrades(studentId);
+            dbFacade.AssignCourseTeacher(teacherId, courseId);
         }
 
-        public int GetStudentId(String email)
+        public int CreateTeacher(String name, String familyName, String email)
         {
-            return dbFacade.GetStudentId(email);
+            return dbFacade.CreateTeacher(ObjectFactory.Instance.CreateTeacher(name, familyName, email));
+        }
+
+        public List<int> GetAllTeacherIds()
+        {
+            return dbFacade.GetAllTeacherIds();
+        }
+
+        public List<int> GetTeacherCourseIds(int teacherId)
+        {
+            return dbFacade.GetTeacherCourseIds(teacherId);
+        }
+
+        public List<String> GetTeacherInfo(int teacherId)
+        {
+            return dbFacade.GetTeacherInfo(teacherId);
         }
 
         #endregion
 
-        #region teacher services
+        #region exam
 
         public void CreateExam(int courseId, WcfServices.ExamType type)
         {
-            dbFacade.CreateExam(ObjectFactory.Instance.CreateExam(courseId,type));
+            dbFacade.CreateExam(ObjectFactory.Instance.CreateExam(courseId, type));
         }
 
-        public List<int> GetCourseStudentIds(int courseId)
+        public List<double> GetCourseExamGrades(int courseId, bool reexam = false)
         {
-            return dbFacade.GetCourseStudentIds(courseId);
+            return dbFacade.GetCourseExamGrades(courseId, reexam);
+        }
+
+        public double GetStudentExamGrade(int studentId, int examId)
+        {
+            return dbFacade.GetStudentExamGrade(studentId, examId);
+        }
+
+        public List<double> GetStudentExamGrades(int studentId)
+        {
+            return dbFacade.GetStudentExamGrades(studentId);
         }
 
         public void GradeExam(int examAttemptId, double grade)
@@ -104,15 +144,6 @@ namespace WcfServices
             dbFacade.GradeExam(examAttemptId, grade);
         }
 
-        public List<double> GetExamGrades(int courseId, bool reexam = false)
-        {
-            return dbFacade.GetExamGrades(courseId, reexam);
-        }
-
-        public List<int> GetTeacherCourseIds(int teacherId)
-        {
-            return dbFacade.GetTeacherCourseIds(teacherId);
-        }
 
         #endregion
     }

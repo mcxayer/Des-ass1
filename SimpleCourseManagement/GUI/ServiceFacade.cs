@@ -54,7 +54,7 @@ namespace GUI.Facade
 
         public List<double> GetExamGrades(int studentId)
         {
-            return serviceProxy.GetExamGrades(studentId);
+            return serviceProxy.GetStudentExamGrades(studentId);
         }
 
         public int GetStudentId(String email)

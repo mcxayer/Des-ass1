@@ -21,11 +21,11 @@ namespace WcfServices
             }
         }
 
-        public void CreateCourseInstance(int courseTypeId, string instanceName, string ects, Schedule schedule)
+        public int CreateCourseInstance(int courseTypeId, string instanceName, string ects, Schedule schedule)
         {
             try
             {
-                DomainFacade.Instance.CreateCourseInstance(courseTypeId, instanceName, ects, schedule);
+                return DomainFacade.Instance.CreateCourseInstance(courseTypeId, instanceName, ects, schedule);
             }
             catch
             {
@@ -33,15 +33,75 @@ namespace WcfServices
             }
         }
 
-        public void CreateCourseType(string name, string description)
+        public int CreateCourseType(string name, string description)
         {
             try
             {
-                DomainFacade.Instance.CreateCourseType(name, description);
+                return DomainFacade.Instance.CreateCourseType(name, description);
             }
             catch
             {
                 throw new FaultException("A problem occurred trying to create new course type!");
+            }
+        }
+
+        public int CreateTeacher(String name, String familyName, String email)
+        {
+            try
+            {
+                return DomainFacade.Instance.CreateTeacher(name, familyName, email);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to create new teacher!");
+            }
+        }
+
+        public List<int> GetAllCourseIds()
+        {
+            try
+            {
+                return DomainFacade.Instance.GetAllCourseIds();
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get all course ids!");
+            }
+        }
+
+        public List<int> GetAllTeacherIds()
+        {
+            try
+            {
+                return DomainFacade.Instance.GetAllTeacherIds();
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get all teacher ids!");
+            }
+        }
+
+        public List<String> GetCourseInfo(int courseId)
+        {
+            try
+            {
+                return DomainFacade.Instance.GetCourseInfo(courseId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get course info!");
+            }
+        }
+
+        public List<String> GetTeacherInfo(int teacherId)
+        {
+            try
+            {
+                return DomainFacade.Instance.GetTeacherInfo(teacherId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get teacher info!");
             }
         }
 

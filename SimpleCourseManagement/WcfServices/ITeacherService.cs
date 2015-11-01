@@ -25,7 +25,7 @@ namespace WcfServices
 
         [OperationContract]
         [FaultContract(typeof(FaultException))]
-        List<double> GetExamGrades(int courseId, bool reexam = false);
+        List<double> GetCourseExamGrades(int courseId, bool reexam = false);
 
         [OperationContract]
         [FaultContract(typeof(FaultException))]
