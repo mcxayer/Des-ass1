@@ -12,9 +12,11 @@ namespace GUI
 {
     public partial class Form5 : Form
     {
-        public Form5()
+        int id;
+        public Form5(int studentid)
         {
             InitializeComponent();
+            id = studentid;
         }
 
         private void button2_Click(object sender, EventArgs e)

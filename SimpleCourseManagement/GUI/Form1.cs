@@ -48,7 +48,11 @@ namespace GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            String email = textBox1.Text;
+            int studentId = ServiceFacade.Instance.GetStudentId(email);
+            Form3 f3 = new Form3(studentId);
+            f3.ShowDialog();
+            this.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

@@ -12,9 +12,16 @@ namespace GUI
 {
     public partial class Form6 : Form
     {
-        public Form6()
+        int id;
+        public Form6(int studentid)
         {
             InitializeComponent();
+            id = studentid;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
