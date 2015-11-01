@@ -44,8 +44,6 @@ namespace GUI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form6 f6 = new Form6(currentId);
-            f6.ShowDialog();
         }
 
         private void Form3_Load(object sender, EventArgs e)
