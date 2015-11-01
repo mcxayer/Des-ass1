@@ -36,12 +36,7 @@ namespace GUI
         {
             this.Close();
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void button3_Click(object sender, EventArgs e)
         {
             String examstring = textBox1.Text;
@@ -61,16 +56,6 @@ namespace GUI
             {
                 MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
 
         }
     }
