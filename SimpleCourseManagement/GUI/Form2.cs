@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,8 +39,16 @@ namespace GUI
             String name = textBox1.Text;
             String famName = textBox2.Text;
             String email = textBox3.Text;
-            ServiceFacade.Instance.RegisterStudent(name, famName, email);
-            this.Close();
+
+            try
+            {
+                ServiceFacade.Instance.RegisterStudent(name, famName, email);
+                this.Close();
+            }
+            catch (FaultException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
