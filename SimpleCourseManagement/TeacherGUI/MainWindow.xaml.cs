@@ -21,12 +21,12 @@ namespace TeacherGUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        NetworkFacade nf;
+        ServiceFacade nf;
 
         public MainWindow()
         {
             InitializeComponent();
-            nf = new NetworkFacade();
+            nf = new ServiceFacade();
             UpdateCoursesListView();
         }
 

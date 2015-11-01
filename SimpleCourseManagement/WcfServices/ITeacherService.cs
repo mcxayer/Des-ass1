@@ -13,7 +13,15 @@ namespace WcfServices
     {
         [OperationContract]
         [FaultContract(typeof(FaultException))]
-        void CreateExam(int courseId, ExamType type);
+        int CreateExam(int courseId, ExamType type);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        List<int> GetAllCourseIds();
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        List<String> GetCourseInfo(int courseId);
 
         [OperationContract]
         [FaultContract(typeof(FaultException))]
@@ -34,6 +42,10 @@ namespace WcfServices
         [OperationContract]
         [FaultContract(typeof(FaultException))]
         GradeStatistics GetCourseGradeStatistics(int courseId);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultException))]
+        List<string> GetStudentInfo(int studentId);
     }
 
     [DataContract]

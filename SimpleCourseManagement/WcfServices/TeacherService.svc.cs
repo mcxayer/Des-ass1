@@ -10,15 +10,27 @@ namespace WcfServices
 {
     public class TeacherService : ITeacherService
     {
-        public void CreateExam(int courseId, ExamType type)
+        public int CreateExam(int courseId, ExamType type)
         {
             try
             {
-                DomainFacade.Instance.CreateExam(courseId, type);
+                return DomainFacade.Instance.CreateExam(courseId, type);
             }
             catch
             {
                 throw new FaultException("A problem occurred trying to create exam!");
+            }
+        }
+
+        public List<int> GetAllCourseIds()
+        {
+            try
+            {
+                return DomainFacade.Instance.GetAllCourseIds();
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get all course ids!");
             }
         }
 
@@ -98,6 +110,18 @@ namespace WcfServices
             }
         }
 
+        public List<String> GetCourseInfo(int courseId)
+        {
+            try
+            {
+                return DomainFacade.Instance.GetCourseInfo(courseId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get course info!");
+            }
+        }
+
         public List<int> GetCourseStudentIds(int courseId)
         {
             try
@@ -131,6 +155,18 @@ namespace WcfServices
             catch
             {
                 throw new FaultException("A problem occurred trying to grade exam!");
+            }
+        }
+
+        public List<string> GetStudentInfo(int studentId)
+        {
+            try
+            {
+                return DomainFacade.Instance.GetStudentInfo(studentId);
+            }
+            catch
+            {
+                throw new FaultException("A problem occurred trying to get student info!");
             }
         }
     }

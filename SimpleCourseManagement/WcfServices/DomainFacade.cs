@@ -115,13 +115,18 @@ namespace WcfServices
             return dbFacade.GetTeacherInfo(teacherId);
         }
 
+        public List<string> GetStudentInfo(int studentId)
+        {
+            return dbFacade.GetStudentInfo(studentId);
+        }
+
         #endregion
 
         #region exam
 
-        public void CreateExam(int courseId, WcfServices.ExamType type)
+        public int CreateExam(int courseId, WcfServices.ExamType type)
         {
-            dbFacade.CreateExam(ObjectFactory.Instance.CreateExam(courseId, type));
+            return dbFacade.CreateExam(ObjectFactory.Instance.CreateExam(courseId, type));
         }
 
         public List<double> GetCourseExamGrades(int courseId, bool reexam = false)

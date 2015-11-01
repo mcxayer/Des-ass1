@@ -182,9 +182,7 @@ namespace WcfServices
 
             using (DatabaseEntities db = new DatabaseEntities())
             {
-                db.Database.Connection.Open();
-
-                Console.WriteLine(db.Database.Connection.ConnectionString);
+                //db.Database.Connection.Open();
 
                 db.UserSet.Add(student);
                 db.SaveChanges();
@@ -428,11 +426,39 @@ namespace WcfServices
             }
         }
 
+        public List<string> GetStudentInfo(int studentId)
+        {
+            if (studentId < 0)
+            {
+                throw new ArgumentOutOfRangeException("studentId", "studentId can not be less than zero!");
+            }
+
+            using (DatabaseEntities db = new DatabaseEntities())
+            {
+                Student student = (from u in db.UserSet
+                                   where u.Id == studentId
+                                   select u).FirstOrDefault() as Student;
+
+                if (student == null)
+                {
+                    throw new ArgumentException("studentId is not a valid id!");
+                }
+
+                List<string> studentInfo = new List<string>();
+                studentInfo.Add(student.Id.ToString());
+                studentInfo.Add(student.Name);
+                studentInfo.Add(student.FamilyName);
+                studentInfo.Add(student.Email);
+
+                return studentInfo;
+            }
+        }
+
         #endregion
 
         #region exam 
 
-        public void CreateExam(Exam exam)
+        public int CreateExam(Exam exam)
         {
             if (exam == null)
             {
@@ -462,6 +488,8 @@ namespace WcfServices
 
                 db.ExamSet.Add(exam);
                 db.SaveChanges();
+
+                return exam.Id;
             }
         }
 
