@@ -10,22 +10,16 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class Form3 : Form
+    public partial class Form5 : Form
     {
-        public Form3()
+        public Form5()
         {
             InitializeComponent();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Form4 f4 = new Form4();
-            f4.ShowDialog();
+            this.Close();
         }
     }
 }
