@@ -20,3 +20,7 @@
 /SimpleCourseManagement/Types/bin/Debug/EntityFramework.dll
 /SimpleCourseManagement/Types/bin/Debug/Database_log.ldf
 /SimpleCourseManagement/Types/bin/Debug/Database.mdf
+/SimpleCourseManagement/AdminGUI/bin/Debug
+/SimpleCourseManagement/AdminGUI/obj/Debug
+/SimpleCourseManagement/TeacherGUI/bin/Debug
+/SimpleCourseManagement/TeacherGUI/obj/Debug
