@@ -41,19 +41,6 @@ namespace GUI
             Form5 f5 = new Form5(currentId);
             f5.ShowDialog();
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void Form3_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
