@@ -128,5 +128,18 @@ namespace AdminGUI
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void lstCourses1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(lstCourses1.SelectedIndex != -1)
+            {
+                return;
+            }
+        }
+
+        private void changeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
