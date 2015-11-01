@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI.Facade;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace GUI
 {
     public partial class Form4 : Form
     {
-        public Form4()
+        int id;
+        public Form4(int studentid)
         {
             InitializeComponent();
+            id = studentid;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -30,6 +33,20 @@ namespace GUI
         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String coursestring = textBox1.Text;
+            int courseid = Int32.Parse(coursestring);
+            ServiceFacade.Instance.RegisterCourse(id, courseid);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            String coursestring = textBox1.Text;
+            int courseid = Int32.Parse(coursestring);
+            ServiceFacade.Instance.UnregisterCourse(id, courseid);
         }
     }
 }

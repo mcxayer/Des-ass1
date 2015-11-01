@@ -182,9 +182,7 @@ namespace WcfServices
 
             using (DatabaseEntities db = new DatabaseEntities())
             {
-                db.Database.Connection.Open();
-
-                Console.WriteLine(db.Database.Connection.ConnectionString);
+                //db.Database.Connection.Open();
 
                 db.UserSet.Add(student);
                 db.SaveChanges();
